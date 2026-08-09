@@ -1,5 +1,8 @@
 """
-Below is a production-ready template for a ROS 2 node written in Python. It demonstrates how to subscribe to a high-speed camera topic, simulate edge-AI anomaly detection, and publish closed-loop motor correction commands with low latency.
+Implementation Reference:
+ROS 2 Printer Control Node
+Below is a production-ready template for a ROS 2 node written in Python. 
+It demonstrates how to subscribe to a high-speed camera topic, simulate edge-AI anomaly detection, and publish closed-loop motor correction commands with low latency.
 """
 import rclpy
 from rclpy.node import Node
@@ -72,4 +75,12 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-  
+
+
+
+
+"""
+python3 edge_ai_printer_controller.py
+ros2 topic echo /motor_actuator_driver_node/laser_power
+ros2 topic pub --once /sensor_optical_coherence_node std_msgs/msg/String "{data: '{\"porosity_index\": 0.58}'}"
+"""
