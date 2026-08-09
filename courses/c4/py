@@ -1,0 +1,40 @@
+"""
+Python Calibration and Compilation ScriptThis script uses standard machine learning deployment frameworks to ingest a representative calibration dataset from a 3D printer's camera feed, mapping continuous floating-point ranges to discrete 8-bit registers.
+"""
+import numpy as np
+import tensorflow as tf # Framework utilized for edge target compilation
+
+def representative_dataset_generator():
+    """Generates mock meltpool imagery to calibrate the quantization scale."""
+    for _ in range(100):
+        # Simulate a 64x64 pixel grayscale camera capture frame
+        mock_frame = np.random.rand(1, 64, 64, 1).astype(np.float32)
+        yield [mock_frame]
+
+def quantize_edge_model(source_model_path, target_output_path):
+    # 1. Initialize the edge compiler converter from the saved model directory
+    converter = tf.lite.TFLiteConverter.from_saved_model(source_model_path)
+    
+    # 2. Enforce structural hardware optimization policies
+    converter.optimizations = [tf.lite.Optimize.DEFAULT]
+    
+    # 3. Bind the calibration dataset generator to map dynamic layer ranges
+    converter.representative_dataset = representative_dataset_generator
+    
+    # 4. Restrict execution targets to integer operations only
+    converter.target_spec.supported_ops = [tf.lite.OpsSet.TFLITE_BUILTINS_INT8]
+    converter.inference_input_type = tf.int8
+    converter.inference_output_type = tf.int8
+    
+    # 5. Compile and serialize the final binary for NPU deployment
+    tflite_quantized_model = converter.convert()
+    with open(target_output_path, 'wb') as f:
+        f.write(tflite_quantized_model)
+        
+    print(f"Success: Quantized model compiled and saved to {target_output_path}")
+
+if __name__ == "__main__":
+    # Execution stub placeholder for industrial laboratory setups
+    # quantize_edge_model("models/fp32_meltpool_net", "models/int8_meltpool_net.tflite")
+    pass
+  
