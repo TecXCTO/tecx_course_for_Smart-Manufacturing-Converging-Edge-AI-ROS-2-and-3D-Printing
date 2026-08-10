@@ -6,7 +6,7 @@
 
 ## Recommended Target Audience & Course Level
 
-* Preferred Target Student: You must target College Students (Undergraduate Engineering/Computer Science) or Working Professionals.
+* Preferred Target Student: I must target College Students (Undergraduate Engineering/Computer Science) or Working Professionals.
 * Why not 12th-level students? 12th-grade students lack the foundational math (Linear Algebra, Calculus) and programming (Python/C++) background required to understand complex real-time kernel modifications, neural network quantization, or ROS 2 node architectures.
 * Course Level: This is strictly an Advanced, Modern, and Cutting-Edge Engineering Course. It bridges several advanced disciplines (Robotics middleware, Deep Learning compiler engineering, and Hybrid Advanced Manufacturing Physics), making it far beyond a basic course.
 
